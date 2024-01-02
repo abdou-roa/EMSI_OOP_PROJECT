@@ -90,9 +90,13 @@ class Facture{
 
         void afficher_produits_avec_cond(float prix_max);
 
+        void modifier_quantite_produit( int quantite, int index);
+
+        void suprimer_produit_fact(Produit p);
+
         int getCode() const;
         int getNbrProduits() const;
-        Produit getProduit(int index) const;
+        Produit& getProduit(int index);
         int getJour() const;
         int getMois() const;
         int getAnnee() const;

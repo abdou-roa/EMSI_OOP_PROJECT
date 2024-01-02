@@ -120,7 +120,6 @@ Client::Client(Client &C) {
 
 
 // client getters and setters
-
 void Client::saisie_Client() {
     cout << "Enter Identifiant: ";
     cin >> identifiant;
@@ -321,8 +320,24 @@ void Facture::afficher_produits_avec_cond(float prix_max){
     }
 };
 
+void Facture::modifier_quantite_produit(int quantite, int index){
+    if(this->getEtat() != "payee")
+        this->getProduit(index).setQuantite(quantite);
+    else
+    cout << "la facture est deja payee" << endl;
+}
 
-
+void Facture::suprimer_produit_fact(Produit p){
+    for(int i = 0; i < nbr_produits; i++)
+    {
+        if(this->produits[i].getIdentifiant() == p.getIdentifiant()){
+            produits[i]  = Produit();
+            cout << "produit suprimee!" << endl;
+        }
+        else
+            cout << "produit n'existe pas" << endl;
+    }
+}
 //facture getters & setters
 int Facture::getCode() const {
     return code;
@@ -383,10 +398,12 @@ void Facture::setClient(Client &client){
     this->client = client;
 }
 
-// Produit Facture::getProduit(int index) const {
-//     for (int i = 0; i < 30; i++)
-//     {
-//         if(produits[i].getIdentifiant() == index)
-//             return produits[i];
-//     }
-// }
+Produit& Facture::getProduit(int index) {
+    for (int i = 0; i < 30; i++)
+    {
+        if(produits[i].getIdentifiant() == index)
+            return this->produits[i];
+    }
+    static Produit emptyProduct;
+    return emptyProduct;
+}
